@@ -15,6 +15,7 @@
 -   Run command `php artisan migrate`
 -   Run command `php artisan make:user-admin`
 -   Run command `php artisan db:seed`
+-   On your local machine you can run `php artisan serve` and `npm run dev` or `npm run build`
 
 ## About Laravel
 
