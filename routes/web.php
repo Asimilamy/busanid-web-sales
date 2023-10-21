@@ -46,7 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/salespeople/submit', [App\Http\Controllers\Salesperson\SalespersonController::class, 'submit'])->name('salespeople.submit');
     Route::delete('/salespeople/delete/{salesperson}', [App\Http\Controllers\Salesperson\SalespersonController::class, 'destroy'])->name('salespeople.destroy');
 
-    Route::get('/transactions', [ProfileController::class, 'edit'])->name('transactions');
+    Route::get('/transactions', App\Http\Controllers\Transaction\TransactionsIndex::class)->name('transactions');
+    Route::get('/transactions/create', [App\Http\Controllers\Transaction\TransactionController::class, 'create'])->name('transactions.create');
+    Route::get('/transactions/edit/{transaction}', [App\Http\Controllers\Transaction\TransactionController::class, 'edit'])->name('transactions.edit');
+    Route::post('/transactions/submit', [App\Http\Controllers\Transaction\TransactionController::class, 'submit'])->name('transactions.submit');
+    Route::delete('/transactions/delete/{transaction}', [App\Http\Controllers\Transaction\TransactionController::class, 'destroy'])->name('transactions.destroy');
 });
 
 require __DIR__.'/auth.php';
