@@ -36,6 +36,15 @@ const submit = () => {
                     </SecondaryButton>
 
                     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <div
+                            class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                            role="alert"
+                        >
+                            <span class="font-medium">
+                                Default password for new created salesperson is
+                                'password'!
+                            </span>
+                        </div>
                         <form @submit.prevent="submit">
                             <div>
                                 <InputLabel for="name" value="Name *" />

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Salesperson\SubmitSalespersonRequest;
 use App\Models\Salesperson;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class SalespersonController extends Controller
@@ -33,8 +34,12 @@ class SalespersonController extends Controller
             ? new User()
             : $salesperson->user;
         $user->fill($request->except('id'));
+        $user->fill(['password' => Hash::make('password')]);
         $user->save();
-        $salesperson->fill($request->only('id'));
+        $salesperson->fill([
+            'id' => $request->only('id'),
+            'user_id' => $user->id
+        ]);
         $salesperson->save();
         sleep(1);
 

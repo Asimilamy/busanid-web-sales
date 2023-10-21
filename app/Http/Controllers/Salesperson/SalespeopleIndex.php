@@ -19,8 +19,8 @@ class SalespeopleIndex
         $globalSearch = AllowedFilter::callback('global', function (Builder $query, mixed $value) {
             $query->where(function (Builder $query) use ($value) {
                 Collection::wrap($value)->each(function ($value) use ($query) {
-                    $query->orWhere('name', 'LIKE', '%' . $value . '%')
-                        ->orWhere('email', 'LIKE', '%' . $value . '%');
+                    $query->orWhere('users.name', 'LIKE', '%' . $value . '%')
+                        ->orWhere('users.email', 'LIKE', '%' . $value . '%');
                 });
             });
         });
