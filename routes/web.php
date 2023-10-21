@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,11 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/products', [ProductController::class, 'index'])->name('products');
-    Route::get('/products/create', [ProductController::class, 'index'])->name('products.create');
-    Route::get('/products/edit/{product}', [ProductController::class, 'index'])->name('products.edit');
-    Route::post('/products/submit', [ProductController::class, 'index'])->name('products.submit');
-    Route::delete('/products/delete/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/products', App\Http\Controllers\Product\ProductsIndex::class)->name('products');
+    Route::get('/products/create', [App\Http\Controllers\Product\ProductController::class, 'create'])->name('products.create');
+    Route::get('/products/edit/{product}', [App\Http\Controllers\Product\ProductController::class, 'edit'])->name('products.edit');
+    Route::post('/products/submit', [App\Http\Controllers\Product\ProductController::class, 'submit'])->name('products.submit');
+    Route::delete('/products/delete/{product}', [App\Http\Controllers\Product\ProductController::class, 'destroy'])->name('products.destroy');
 
     Route::get('/salespersons', [ProfileController::class, 'edit'])->name('salespersons');
     Route::get('/transactions', [ProfileController::class, 'edit'])->name('transactions');
