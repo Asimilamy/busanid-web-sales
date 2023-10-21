@@ -34,27 +34,35 @@
     @foreach ($salespeople as $salesperson)
         <tr>
             <th>{{ $salesperson->user->name }}</th>
-            <th>{{ $salesperson->transactions->unique('date')->count() }}</th>
+            <th>
+                {{ $salesperson->transactions
+                ->whereBetween('date', [$startDate, $endDate])
+                ->unique('date')->count() }}
+            </th>
             <th>
                 {{ $salesperson->transactions->filter(function ($item) {
                     return $item['type'] == 'barang';
-                })->count() }}
+                })->whereBetween('date', [$startDate, $endDate])
+                ->count() }}
             </th>
             <th>
                 {{ $salesperson->transactions->filter(function ($item) {
                     return $item['type'] == 'jasa';
-                })->count() }}
+                })->whereBetween('date', [$startDate, $endDate])
+                ->count() }}
             </th>
             <th>
                 {{ $salesperson->transactions->filter(function ($item) {
                     return $item['type'] == 'barang';
                 })
+                ->whereBetween('date', [$startDate, $endDate])
                 ->sum('grandtotal') }}
             </th>
             <th>
                 {{ $salesperson->transactions->filter(function ($item) {
                     return $item['type'] == 'jasa';
                 })
+                ->whereBetween('date', [$startDate, $endDate])
                 ->sum('grandtotal') }}
             </th>
         </tr>

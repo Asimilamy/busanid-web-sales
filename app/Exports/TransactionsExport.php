@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Salesperson;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Query\JoinClause;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
