@@ -29,10 +29,20 @@ class SubmitTransactionRequest extends FormRequest
             'type' => 'required',
             'grandtotal' => 'required',
 
-            'details.product_id.*' => 'required',
-            'details.qty.*' => 'required',
-            'details.value.*' => 'required',
-            'details.subtotal.*' => 'required',
+            'details.*.product_id' => 'required',
+            'details.*.qty' => 'required',
+            'details.*.value' => 'required',
+            'details.*.subtotal' => 'required',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'details.*.product_id' => 'Product ID',
+            'details.*.qty' => 'Qty',
+            'details.*.value' => 'Value',
+            'details.*.subtotal' => 'Subtotal',
         ];
     }
 }

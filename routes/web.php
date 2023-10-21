@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transactions/edit/{transaction}', [App\Http\Controllers\Transaction\TransactionController::class, 'edit'])->name('transactions.edit');
     Route::post('/transactions/submit', [App\Http\Controllers\Transaction\TransactionController::class, 'submit'])->name('transactions.submit');
     Route::delete('/transactions/delete/{transaction}', [App\Http\Controllers\Transaction\TransactionController::class, 'destroy'])->name('transactions.destroy');
+    Route::get('/transactions/export/{start_date?}/{end_date?}', [App\Http\Controllers\Transaction\TransactionController::class, 'export'])->name('transactions.export');
 });
 
 require __DIR__.'/auth.php';

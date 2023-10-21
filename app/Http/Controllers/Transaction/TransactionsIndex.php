@@ -42,7 +42,9 @@ class TransactionsIndex
             ->withQueryString();
 
         return Inertia::render('Transactions/Index', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'start_date' => now()->subDays(7)->format('Y-m-d'),
+            'end_date' => now()->format('Y-m-d'),
         ])->table(function (InertiaTable $table) {
             $table->withGlobalSearch()
                 ->defaultSort('-id')

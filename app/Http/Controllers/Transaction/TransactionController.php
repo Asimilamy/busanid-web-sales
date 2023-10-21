@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Transaction;
 
+use App\Exports\TransactionsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Transaction\SubmitTransactionRequest;
 use App\Models\Product;
@@ -9,6 +10,7 @@ use App\Models\Salesperson;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -79,5 +81,10 @@ class TransactionController extends Controller
 
         return redirect(route('transactions'))
             ->with('message', 'Transaction deleted successfully!');
+    }
+
+    public function export(string $startDate, string $endDate): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        return Excel::download(new TransactionsExport($startDate, $endDate), auth()->user()->name . 'transaction_report.xlsx');
     }
 }

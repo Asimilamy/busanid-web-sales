@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\MessageBag;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -41,7 +43,30 @@ class HandleInertiaRequests extends Middleware
             },
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
-            ]
+            ],
         ]);
+    }
+
+    public function resolveValidationErrors(Request $request)
+    {
+        if (! $request->hasSession() || ! $request->session()->has('errors')) {
+            return (object) [];
+        }
+
+        return (object) collect($request->session()->get('errors')->getBags())->map(function ($bag) {
+            return (object) collect($bag->messages())->undot()->map(function ($errors) {
+                return $errors[0];
+            })->toArray();
+        })->pipe(function ($bags) use ($request) {
+            if ($bags->has('default') && $request->header('x-inertia-error-bag')) {
+                return [$request->header('x-inertia-error-bag') => $bags->get('default')];
+            }
+
+            if ($bags->has('default')) {
+                return $bags->get('default');
+            }
+
+            return $bags->toArray();
+        });
     }
 }
