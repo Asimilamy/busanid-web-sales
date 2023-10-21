@@ -40,7 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/submit', [App\Http\Controllers\Product\ProductController::class, 'submit'])->name('products.submit');
     Route::delete('/products/delete/{product}', [App\Http\Controllers\Product\ProductController::class, 'destroy'])->name('products.destroy');
 
-    Route::get('/salespersons', [ProfileController::class, 'edit'])->name('salespersons');
+    Route::get('/salespeople', App\Http\Controllers\Salesperson\SalespeopleIndex::class)->name('salespeople');
+    Route::get('/salespeople/create', [App\Http\Controllers\Salesperson\SalespersonController::class, 'create'])->name('salespeople.create');
+    Route::get('/salespeople/edit/{salesperson}', [App\Http\Controllers\Salesperson\SalespersonController::class, 'edit'])->name('salespeople.edit');
+    Route::post('/salespeople/submit', [App\Http\Controllers\Salesperson\SalespersonController::class, 'submit'])->name('salespeople.submit');
+    Route::delete('/salespeople/delete/{salesperson}', [App\Http\Controllers\Salesperson\SalespersonController::class, 'destroy'])->name('salespeople.destroy');
+
     Route::get('/transactions', [ProfileController::class, 'edit'])->name('transactions');
 });
 

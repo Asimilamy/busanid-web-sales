@@ -44,8 +44,8 @@ const showingNavigationDropdown = ref(false);
                                     Products
                                 </NavLink>
                                 <NavLink
-                                    :href="route('salespersons')"
-                                    :active="route().current('salespersons')"
+                                    :href="route('salespeople')"
+                                    :active="route().current('salespeople')"
                                 >
                                     Sales Persons
                                 </NavLink>

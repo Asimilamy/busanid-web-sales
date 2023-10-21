@@ -5,38 +5,34 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
-import SelectInput from "@/Components/SelectInput.vue";
-import { Head, useForm, Link, usePage } from "@inertiajs/vue3";
-
-const product = usePage().props.product;
+import { Head, useForm, Link } from "@inertiajs/vue3";
 
 const form = useForm({
-    id: product.id,
-    name: product.name,
-    type: product.type,
+    name: "",
+    email: "",
 });
 
 const submit = () => {
-    form.post(route("products.submit"), {
-        onFinish: () => form.reset("name", "type"),
+    form.post(route("salespeople.submit"), {
+        onFinish: () => form.reset("name", "email"),
     });
 };
 </script>
 
 <template>
     <div>
-        <Head title="Create Products" />
+        <Head title="Create Salespeople" />
         <AuthenticatedLayout>
             <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Edit Products #{{ form.id }}
+                    Create Salespeople
                 </h2>
             </template>
 
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <SecondaryButton :type="`button`">
-                        <Link href="/products">Back to Table</Link>
+                        <Link href="/salespeople">Back to Table</Link>
                     </SecondaryButton>
 
                     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -61,23 +57,20 @@ const submit = () => {
                             </div>
 
                             <div class="mt-4">
-                                <InputLabel for="type" value="Type *" />
+                                <InputLabel for="email" value="Email *" />
 
-                                <SelectInput
+                                <TextInput
+                                    id="email"
+                                    type="text"
                                     class="mt-1 block w-full"
-                                    v-model="form.type"
-                                    :options="[
-                                        { code: 'barang', label: 'Barang' },
-                                        { code: 'jasa', label: 'Jasa' },
-                                    ]"
-                                    key-index="code"
-                                    value-index="code"
-                                    label-index="label"
-                                ></SelectInput>
+                                    v-model="form.email"
+                                    autocomplete="email"
+                                    placeholder="Email..."
+                                />
 
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.type"
+                                    :message="form.errors.email"
                                 />
                             </div>
 
